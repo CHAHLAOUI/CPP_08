@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahlao <achahlao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/09 10:21:01 by achahlao          #+#    #+#             */
+/*   Updated: 2025/11/02 13:43:28 by achahlao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+#include <exception> 
+
+class NotFoundException : public std::exception {
+public:
+    virtual const char* what() const throw() {
+        return "Element not found in the container";
+    }
+};
+
+
+template <typename T>
+typename T::iterator easyfind(T& container, int value) {
+    typename T::iterator it = std::find(container.begin(), container.end(), value);
+    if (it == container.end()) {
+        throw NotFoundException();
+    }
+    return (it);
+}
